@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
 
 function Unsplash() {
-    const api = `https://gnews.io/api/v4/search?q=football&apikey=0881f1893c65bbc963ed149ac874771e`;
-    const [image, setImage] = useState([]);
-    const [search, setSearch] = useState("");
+  const api = `https://gnews.io/api/v4/search?q=football&apikey=0881f1893c65bbc963ed149ac874771e`;
+  const [image, setImage] = useState([]);
+  const [search, setSearch] = useState("");
 
-    const handleClick = async (e) => {
-      e.preventDefault();
-      const link = `https://gnews.io/api/v4/search?q=${search}&apikey=0881f1893c65bbc963ed149ac874771e`;
-      const res1 = await fetch(link);
-      const data1 = await res1.json();
-      console.log(data1.articles);
-      setImage(data1.articles);
-    };
-    useEffect(() => {
-      async function splash() {
-        const res = await fetch(api);
-        const data = await res.json();
-        console.log(data.articles);
-      }
-      splash();
-    }, []);
-
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const link = `https://gnews.io/api/v4/search?q=${search}&apikey=0881f1893c65bbc963ed149ac874771e`;
+    const res1 = await fetch(link);
+    const data1 = await res1.json();
+    console.log(data1.articles);
+    setImage(data1.articles);
+  };
+  useEffect(() => {
+    async function splash() {
+      const res = await fetch(api);
+      const data = await res.json();
+      console.log(data.articles);
+    }
+    splash();
+  }, []);
 
   return (
     <>
@@ -32,7 +31,7 @@ function Unsplash() {
             className=" rounded-md px-2 outline-none "
             type="text"
             onChange={(e) => {
-                setSearch(e.target.value);
+              setSearch(e.target.value);
             }}
           />
           <button onClick={handleClick}>
@@ -56,36 +55,28 @@ function Unsplash() {
       <div className="w-full flex flex-col pt-6">
         {image.length > 1 ? (
           image?.map((pack) => {
-            const { id, image, name, content, description , source , title} = pack
-         return (
-        <>
-          <div className="container mx-auto w-[80%] flex flex-col py-10 items-center space-x-5">
-            <h1 className="text-3xl py-3 font-semibold">
-             {title}
-            </h1>
-            <img
-              src={image}
-              alt=""
-              className="w-1/2 rounded-[10px]"
-            />
-            <div className="text-center py-10">
-              <h2 className="py-3">
-               {description}
-              </h2>
-              <span className="font-bold  text-4xl">Content</span>
-              <h1 className="py-5 px-36 text-2xl">
-               {content}
-              </h1>
-            </div>
-          </div>
-          <hr />
-        </>
-        );
+            const { id, image, name, content, description, source, title } =
+              pack;
+            return (
+              <>
+                <div className="container mx-auto w-[80%] flex flex-col py-10 items-center space-x-5">
+                  <h1 className="text-3xl py-3 font-semibold text-white">{title}</h1>
+                  <img src={image} alt="" className="w-1/2 rounded-[10px]" />
+                  <div className="text-center py-10">
+                    <span className="text-white">Description</span>
+                    <h2 className="py-3 text-white">{description}</h2>
+                    <span className="font-bold  text-4xl text-white">Content</span>
+                    <h1 className="py-5 px-36 text-2xl text-white">{content}</h1>
+                  </div>
+                </div>
+                <hr />
+              </>
+            );
           })
         ) : (
-          <center>
-            <div>{search} Nothing Found Related This Search</div>
-          </center>
+          <div className="text-white flex justify-center items-center">
+            <h1 className="text-7xl p-40 font-normal">{search} Nothing Found Related This Search</h1>
+          </div>
         )}
       </div>
     </>
